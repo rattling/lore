@@ -95,10 +95,6 @@ incidental.
 Generic engineering lessons learned while doing sensitive work can be fine if they abstract
 cleanly:
 
-> **No:** the scheduling heuristic, its parameters, and why it beats the alternatives.
-> **Yes:** designing a deterministic interface around a solver so results are reproducible and
-> diffable, without saying anything about the solver.
-
 When in doubt, leave it out. It can stay in the private repo it came from.
 
 Most source repos are private, so entries describe patterns rather than linking to code. Small
