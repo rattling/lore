@@ -88,10 +88,6 @@ This repo is public, so be conservative. Nothing that is:
 - product IP that might get commercialised
 - algorithms or mathematics that form part of a proposition being sold
 
-Nothing at all from the optimisation and scheduling work. No algorithms, heuristics,
-parameters, mathematical methods or sources of differentiation, including things that look
-incidental.
-
 Generic engineering lessons learned while doing sensitive work can be fine if they abstract
 cleanly:
 
