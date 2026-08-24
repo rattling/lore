@@ -3,8 +3,8 @@
 ## The thing
 
 If you cache a handler per credential and register its behaviour once, anything request-scoped
-you put into that closure silently becomes *first-request-wins* for every later caller sharing
-the credential. It fails invisibly — right answers, wrong tenant.
+you put in that closure becomes first-request-wins for every later caller sharing the
+credential. It fails invisibly: right answers, wrong tenant.
 
 ## Where I learned it
 
@@ -24,20 +24,20 @@ const handlerFor = memoizeByKey(
 );
 ```
 
-That memoisation was itself a fix for a real leak — the MCP library expects to be constructed
+That memoisation was itself a fix for a real leak. The MCP library expects to be constructed
 once, and building one per request piled up transports until the process died. So it had to
 stay.
 
 The obvious way to add the project binding was to pass it into `registerTools` alongside
-`viewer`. That's wrong, and quietly so: tools register *once* per handler and close over
-whatever they were given. One token, several repos — my laptop has a dozen — and the first
-repo to call would fix the project for every later call on that token. A card filed against
-the wrong project, with nothing in any log to show it.
+`viewer`. That's wrong, and quietly so. Tools register once per handler and close over what
+they were given. One token, several repos, and the first repo to call fixes the project for
+every later call on that token. A card filed against the wrong project, with nothing in any log
+to show it.
 
 ## The fix
 
-`AsyncLocalStorage`. One handler per token, as the leak fix requires; one binding per request,
-as correctness requires.
+`AsyncLocalStorage`. One handler per token, as the leak fix needs. One binding per request, as
+correctness needs.
 
 ```ts
 const store = new AsyncLocalStorage<string | undefined>();
@@ -52,26 +52,26 @@ Tools read `boundProject()` when the caller omits an explicit argument.
 
 ## Why not just widen the cache key
 
-`token:project` looks like the easy fix and is worse. The cache was an unbounded `Map`, and the
-project name comes from the client — so an arbitrary number of distinct values would leak
-handlers indefinitely, resurrecting the exact bug the memoisation existed to fix.
+`token:project` looks like the easy fix and is worse. The cache was an unbounded `Map` and the
+project name comes from the client, so an arbitrary number of distinct values would leak
+handlers indefinitely, bringing back the exact bug the memoisation existed to fix.
 
-**The general shape: when a cache key is derived from client input, it's a memory-exhaustion
-vector.** Widening a key to solve a correctness problem is usually a sign the state is in the
-wrong place, not that the key is too narrow.
+When a cache key is derived from client input, it's a memory-exhaustion vector. Widening a key
+to solve a correctness problem usually means the state is in the wrong place, not that the key
+was too narrow.
 
 ## Gotchas
 
-- **Write the leak test, and name it for the failure.** Mine is *"does not leak one repo's
-  binding into another's request on the same handler"* — two bindings through one registered
-  toolset, asserting no bleed. Without it this regresses the first time someone "simplifies"
-  the context plumbing, and no ordinary test would notice.
-- **Node runtime only.** `AsyncLocalStorage` is `node:async_hooks`; it won't work on an edge
+- Write the leak test and name it for the failure. Mine is "does not leak one repo's binding
+  into another's request on the same handler": two bindings through one registered toolset,
+  asserting no bleed. Without it this regresses the first time someone simplifies the context
+  plumbing, and no ordinary test would notice.
+- Node runtime only. `AsyncLocalStorage` is `node:async_hooks` and won't work on an edge
   runtime.
-- **Routing may need a rewrite step.** The MCP handler matches a fixed endpoint path, so
+- Routing may need a rewrite step. The MCP handler matches a fixed endpoint path, so
   `/api/mcp/<project>` had to be rewritten back to `/api/mcp` before reaching it, with the
-  project travelling out-of-band. Rebuilding a `Request` around a stream body needs
+  project travelling out of band. Rebuilding a `Request` around a stream body needs
   `duplex: "half"`, which isn't in the DOM types.
-- **The general case is broader than MCP.** Any long-lived, per-credential object — a cached
-  client, a prepared statement set, a registered router — has this shape. Ask what varies per
-  *request* versus per *credential*, and don't let the first one hide inside the second.
+- The general case is broader than MCP. Any long-lived per-credential object (a cached client, a
+  prepared statement set, a registered router) has this shape. Ask what varies per request
+  versus per credential, and don't let the first hide inside the second.
