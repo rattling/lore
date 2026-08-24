@@ -105,10 +105,6 @@ Most source repos are private, so entries describe patterns rather than linking 
 snippets are fine where the snippet is the point. Copying whole files isn't, because then it
 has to be maintained twice.
 
-## Keeping it boring
+## Keeping it simple
 
-The thing that kills a repo like this is not neglect. It is enthusiasm: a taxonomy nobody
-needs, a script to build an index, a schema that turns capture into a chore. Directories appear
-when there is enough material for them, not before.
-
-A dozen entries worth re-reading beats two hundred that restate the documentation.
+Enthusiasm kills these kinds of repos. KISS.
