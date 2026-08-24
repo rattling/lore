@@ -1,5 +1,8 @@
 # Working in this repo
 
+You're reading this because you're working inside this repo. If you were asked to capture
+something while working elsewhere, that instruction lives in the machine-level agent file.
+
 This is a folder of markdown files holding technical lessons. It's deliberately not a product.
 Your job here is to add to it without making it heavier.
 
@@ -64,8 +67,8 @@ If you find yourself proposing automation, say so and let the human decline it.
 ## Before you commit
 
 - Does this contain client data, credentials, NDA material or commercially sensitive detail?
-- Does it touch the optimisation or scheduling work? If so, leave it out, including things that
-  look incidental.
+- Does it touch work with commercial value? If so leave it out, including the parts that look
+  incidental.
 - Would a stranger find this useful, or is it documentation for its own sake?
 
 If any of those gives you pause, don't publish it. It can live in the private repo it came

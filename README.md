@@ -28,7 +28,7 @@ it up in two minutes, it doesn't need to be here.
 If it's about running a project it goes in ways-of-working. If it's about building things, it
 goes here.
 
-E.g. "design contracts at module boundaries") is a standard and belongs in ways-of-working. A specific thing that bit me
+E.g. "design contracts at module boundaries" is a standard and belongs in ways-of-working. A specific thing that bit me
 ("Azure Burstable tiers throttle on CPU credits") is a lesson and belongs here.
 
 ## Capture, then curate
@@ -48,11 +48,12 @@ Plenty of captures will sit in `inbox/` forever. That's fine.
 
 ## Adding something
 
-**As a human**, write a markdown file. Put it in `inbox/` if you're moving fast, or straight
-into a topic folder if you know where it goes. Five lines is a perfectly good entry.
+Write a markdown file. `inbox/` if you're moving fast, a topic folder if you know where it
+goes. Five lines is a perfectly good entry.
 
-**As an agent**, see [AGENTS.md](AGENTS.md). Short version: capture when asked, keep it short,
-ground it in something that actually happened, don't invent new structure.
+Capturing from another repo? That instruction belongs in your machine-level agent file, not
+here. This repo is only the destination. An agent working inside this repo follows
+[AGENTS.md](AGENTS.md).
 
 A rough shape:
 
@@ -88,10 +89,8 @@ This repo is public, so be conservative. Nothing that is:
 - product IP that might get commercialised
 - algorithms or mathematics that form part of a proposition being sold
 
-Generic engineering lessons learned while doing sensitive work can be fine if they abstract
-cleanly:
-
-When in doubt, leave it out. It can stay in the private repo it came from.
+Generic lessons learned while doing sensitive work are fine if they abstract cleanly. When in
+doubt, leave it out. It can stay in the private repo it came from.
 
 Most source repos are private, so entries describe patterns rather than linking to code. Small
 snippets are fine where the snippet is the point. Copying whole files isn't, because then it
