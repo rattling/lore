@@ -4,6 +4,12 @@ Technical things I've learned, kept somewhere they'll outlive the project that t
 
 Projects get finished, parked or abandoned. Technical lessons not covered under I.P., that deserve to be captured, can live here.
 
+**This is a content repo, not a tool.** Fork it, delete my entries, keep the shape. The value
+isn't what's in here, it's having somewhere cheap enough that you actually write things down.
+
+The habit it's built around: while working in some other repo you notice something, say "capture
+that in lore", and carry on. Later, if it earns it, you tidy. Mostly you don't.
+
 ## In Scope
 
 A folder of markdown files.
@@ -51,9 +57,16 @@ Plenty of captures will sit in `inbox/` forever. That's fine.
 Write a markdown file. `inbox/` if you're moving fast, a topic folder if you know where it
 goes. Five lines is a perfectly good entry.
 
-Capturing from another repo? That instruction belongs in your machine-level agent file, not
-here. This repo is only the destination. An agent working inside this repo follows
-[AGENTS.md](AGENTS.md).
+**To capture from your other repos**, the instruction has to be somewhere the agent reads while
+it's working over there, which is not this repo. Two places it can go:
+
+- your machine-level agent file (`~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`), which applies in
+  every repo on that box
+- each repo's own `AGENTS.md`, which is more explicit and travels with the repo
+
+Either way, point it at your lore checkout and tell it to follow [AGENTS.md](AGENTS.md) from
+here. That file carries the quality bar and the confidentiality checks. Pasting its contents
+into your own repo's `AGENTS.md` works just as well.
 
 A rough shape:
 
@@ -95,6 +108,21 @@ doubt, leave it out. It can stay in the private repo it came from.
 Most source repos are private, so entries describe patterns rather than linking to code. Small
 snippets are fine where the snippet is the point. Copying whole files isn't, because then it
 has to be maintained twice.
+
+### Keeping it out
+
+Your repo, your reputation, so caveat emptor. But a few things help:
+
+- **Draft, then review.** Have the agent write to `inbox/` and stop, and you commit. Ten
+  seconds, and it's the only control that catches what a word list can't.
+- **A pre-commit hook** grepping the staged diff for client names, project code names and
+  private repo names. Catches the copy-paste case, which is the common one.
+- **Keep that list out of this repo.** If your hook's list of client names is committed here,
+  you've published your client list. Put it in `~/.config/` and read it from there.
+- **Watch anything you copied in.** The likeliest leak isn't something you wrote. It's a
+  template or worked example carried over from elsewhere that you didn't read all of.
+- **Scan before you push, not after.** A public repo is public immediately, and force-pushing
+  afterwards is damage limitation rather than a fix.
 
 ## Keeping it simple
 
