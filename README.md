@@ -116,9 +116,11 @@ Your repo, your reputation, so caveat emptor. But a few things help:
 - **Draft, then review.** Have the agent write to `inbox/` and stop, and you commit. Ten
   seconds, and it's the only control that catches what a word list can't.
 - **A pre-commit hook** grepping the staged diff for client names, project code names and
-  private repo names. Catches the copy-paste case, which is the common one.
-- **Keep that list out of this repo.** If your hook's list of client names is committed here,
-  you've published your client list. Put it in `~/.config/` and read it from there.
+  private repo names. There's one in [`.githooks/pre-commit`](.githooks/pre-commit). Enable it
+  with `git config core.hooksPath .githooks`.
+- **Keep the wordlist out of this repo.** A committed list of your clients is a published list
+  of your clients. The hook reads `~/.config/lore-wordlist.txt`, and warns rather than blocks if
+  it's missing, so a fresh clone isn't stuck on setup.
 - **Watch anything you copied in.** The likeliest leak isn't something you wrote. It's a
   template or worked example carried over from elsewhere that you didn't read all of.
 - **Scan before you push, not after.** A public repo is public immediately, and force-pushing
