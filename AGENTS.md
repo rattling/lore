@@ -21,8 +21,7 @@ An entry earns its place when:
 
 It does not earn its place when it is in the official documentation, or when it is a general
 principle nobody learned from anything in particular. "Use dependency injection for
-testability" is filler. Enough filler and nobody reads the repo, which is the failure mode to
-avoid.
+testability" is filler. Enough of it and nobody reads the repo any more.
 
 ## How to write
 

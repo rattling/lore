@@ -25,7 +25,7 @@ from a shell is available too, whatever the tool list says. Denying `WebFetch` w
 `Bash` is locking the front door and leaving the patio open.
 
 Real enforcement is a sandbox: network namespace, firewall, or a container without egress.
-That's the only thing that makes the claim true.
+Nothing short of that makes the claim true.
 
 ## Why it matters more than it looks
 

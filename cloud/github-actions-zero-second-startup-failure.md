@@ -71,9 +71,9 @@ that it's every workflow and every trigger, that the files are unchanged and val
 please check the org's Actions spending limit. Be precise, because it's going to a different
 team who will otherwise tell you to check your YAML.
 
-Also worth noting: it was believed to have been raised and fixed once already. The evidence said
-otherwise, because if it had been fixed there'd be at least one successful run afterwards, and
-there were none. "It was sorted" is a claim. A green run is evidence.
+It was also believed to have been raised and fixed once already. If it had been, there would be
+at least one successful run afterwards, and there were none. Ask for the green run rather than
+the assurance.
 
 ## Work out the blast radius early
 

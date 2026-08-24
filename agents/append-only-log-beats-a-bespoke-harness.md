@@ -30,8 +30,8 @@ the data format.
 
 **1 · The harness owns an append-only log with a designed observation language.** Not free
 prose. Rigid markers (`[POST-ACTION BOARD STATE]`, `[settled]`) that make the log
-programmatically searchable. Design this as a language from day one. Structure buys you
-greppability, and greppability is what replaces a retrieval layer.
+programmatically searchable. Design this as a language from day one. Structure is what lets
+`grep` do the job a retrieval layer would otherwise do.
 
 **2 · The agent owns a workspace and decides what goes in it.** The published notes file from a
 single run (67KB, 615 entries) is a lab notebook: named hypotheses with distinguishing
@@ -39,7 +39,8 @@ predictions written before acting, a world model corrected as it learned, lesson
 blunders, and newest-first ordering so a partial read lands on current state.
 
 Nobody specified any of that. Given an immutable log and some latitude, the agent invented its
-own curation.
+own curation. If you are about to specify how an agent should keep notes, that is worth knowing
+first.
 
 **3 · Derived state is fallible, the log is authoritative.** In one run the agent's own map was
 correct, its plan ignored it, it failed, then it re-derived from the log and recorded the
@@ -67,8 +68,8 @@ This is evidence, not proof, and the regime matters:
 - ARC has a free scoring function. Verification costs nothing there and is expensive
   everywhere else, which changes how much a predict-and-check loop is worth.
 
-The contract transfers. The retrieval economics don't, which is the argument for making the
-observation language as structured as your domain allows.
+The contract transfers. The retrieval economics do not. So make the observation language as
+structured as your domain allows.
 
 Worth separating this from cross-conversation product memory. This is task-horizon memory: one
 job, hours to days, and the notebook dies with the job. Different problem.
