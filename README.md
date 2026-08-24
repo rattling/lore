@@ -2,24 +2,18 @@
 
 Technical things I've learned, kept somewhere they'll outlive the project that taught me them.
 
-Projects get finished, parked or abandoned. The useful part is rarely the code, it's the two or
-three things you'd do differently next time, and those normally die with the repo.
+Projects get finished, parked or abandoned. Technical lessons not covered under I.P., that deserve to be captured, can live here.
 
 ## What this is
 
-A folder of markdown files, and that is the whole design.
+A folder of markdown files.
 
-An entry exists because something was actually learned: a surprise, a pattern that proved its
-worth, a gotcha worth remembering, a technology behaving differently than advertised. Not
-because a topic exists and ought to be written up.
+An entry exists because something was learned: a surprise, a pattern worthy of reuse, a gotcha worth remembering, a technology behaving differently than advertised. 
 
 ## What this isn't
 
 Not an app, a database, an MCP server, a knowledge graph, a tagging system, a search layer or a
 publishing platform. No metadata schema, no automation, no build step.
-
-If it grows one of those, something has gone wrong. Adding to this should cost nothing, and I
-have watched that property get destroyed by well-meant tooling before.
 
 It's also not for things you can get from the documentation. If a competent person could look
 it up in two minutes, it doesn't need to be here.
@@ -28,20 +22,16 @@ it up in two minutes, it doesn't need to be here.
 
 | Repo | Holds |
 |---|---|
-| **jmem** | what I think and remember: notes, ideas, decisions, diary |
 | **[ways-of-working](https://github.com/rattling/ways-of-working)** | how I run projects: setup, light architecture, the delivery loop, general engineering standards |
-| **lore** (here) | what I've learned technically: patterns, gotchas, architectural lessons |
+| **lore** (here) | technical learnings: patterns, gotchas, architectural lessons |
 
-If it's about running a project it goes in ways-of-working. If it's about building the thing it
+If it's about running a project it goes in ways-of-working. If it's about building things, it
 goes here.
 
-The edge between them is worth watching. A general stance ("design contracts at module
-boundaries") is a standard and belongs in ways-of-working. A specific thing that bit me
+E.g. "design contracts at module boundaries") is a standard and belongs in ways-of-working. A specific thing that bit me
 ("Azure Burstable tiers throttle on CPU credits") is a lesson and belongs here.
 
 ## Capture, then curate
-
-Two stages. The first has to be cheap or it won't happen.
 
 **Capture.** Mid-session in some other repo you notice something. Say so:
 
@@ -54,7 +44,7 @@ That becomes `inbox/2026-08-24-agent-python-sandbox.md`. Thirty seconds.
 something related, or write it up properly. Do this when you're passing anyway, not on a
 schedule. There's no review ceremony.
 
-Plenty of captures will sit in `inbox/` forever. That's fine, not a backlog.
+Plenty of captures will sit in `inbox/` forever. That's fine.
 
 ## Adding something
 
@@ -64,7 +54,7 @@ into a topic folder if you know where it goes. Five lines is a perfectly good en
 **As an agent**, see [AGENTS.md](AGENTS.md). Short version: capture when asked, keep it short,
 ground it in something that actually happened, don't invent new structure.
 
-A rough shape, not a schema:
+A rough shape:
 
 ```markdown
 # What the thing is
