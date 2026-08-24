@@ -2,69 +2,61 @@
 
 ## The thing
 
-Azure Database for PostgreSQL Flexible Server on a Burstable tier (the `B` series) runs on CPU
-credits. Sustained load spends them, and when they run out you aren't throttled with an error,
-you're throttled with latency. Everything still works, just slowly enough that whatever has a
-timeout dies first.
+Azure Database for PostgreSQL Flexible Server on a Burstable tier runs on CPU credits. Sustained
+load spends them, and when they run out you're throttled with latency rather than an error.
+Everything still works, just slowly enough that whatever has a timeout dies first.
 
-A nightly data refresh is exactly the workload that exhausts them.
+A nightly refresh is exactly the workload that exhausts them.
 
 ## Where I learned it
 
-A platform running its ETL on `Standard_B1ms` (1 vCore), mid-2026. Weeks of intermittent
-strangeness resolved into one cause.
+A platform running its ETL on `Standard_B1ms`, mid-2026. Weeks of intermittent strangeness, one
+cause.
 
 ## What it looked like
 
-- The DB pegged at ~95% CPU with credits at zero
-- A bulk `INSERT` in the nightly refresh crawled, about 27 minutes of active work
-- The container job's own timeout fired and the run reported `Failed`
-- The 02:00 job had been failing two days running before anyone noticed
+- DB pegged at ~95% CPU, credits at zero
+- a bulk `INSERT` in the nightly refresh crawling, ~27 minutes of active work
+- the container job's own timeout firing, run reported `Failed`
+- the 02:00 job failing two days running before anyone noticed
 
-The presenting symptom is a job failure, so you go and look at the job. Nothing is wrong with
-the job. The floor moved under it.
+The symptom is a job failure, so you go and look at the job. Nothing's wrong with the job.
 
 ## The pattern
 
-Burstable is for spiky, mostly-idle workloads. Anything with a sustained nightly batch is the
-wrong shape for it, however small the database is.
+Burstable is for spiky, mostly-idle workloads. A sustained nightly batch is the wrong shape for
+it however small the database is.
 
-The fix that feels obvious is the wrong one. Moving up within Burstable (B1ms to B2ms) just
-raises the credit ceiling, so you get the same failure later. Only General Purpose removes
-credit throttling, because it has no credit mechanic at all.
+The obvious fix is wrong. Moving up within Burstable (B1ms to B2ms) raises the credit ceiling
+and you get the same failure later. Only General Purpose removes credit throttling, because it
+has no credit mechanic.
 
-The resize is in-place on Flexible Server with a brief restart, so it's cheap to do. Schedule
-it rather than doing it mid-business-day.
+The resize is in-place with a brief restart. Schedule it rather than doing it mid-business-day.
 
 ## Why it took so long to see
 
-Two things conspire:
+Credit exhaustion is invisible from inside the application. Queries don't error, nothing in the
+logs mentions credits. You see slow queries and a downstream timeout.
 
-1. Credit exhaustion is invisible from inside the application. Queries don't error and nothing
-   in the logs says you're out of CPU credits. You see slow queries and a downstream timeout.
-2. The metric that would tell you isn't the one you're watching. `cpu_percent` at 95% looks
-   like ordinary load. `cpu_credits_remaining` trending to zero is the signal, and nobody
-   graphs it until after the first incident.
+And the metric that would tell you isn't the one you're watching. `cpu_percent` at 95% looks
+like load. `cpu_credits_remaining` trending to zero is the signal, and nobody graphs it until
+after the first incident.
 
 ## The half that isn't about Azure
 
-An alert did fire. It was ignored, because it was unclear.
+An alert fired. It was ignored, because it was unclear: no plain statement of what was wrong,
+what it affected, or what to do, sent to one inbox with no escalation. A real incident sailed
+past for two days and was found because it blocked a deploy.
 
-It didn't say what was wrong in plain language, what the impact was, or what to do about it,
-and it went to one inbox with no escalation. So a real incident sailed past for two days, and
-was found because it blocked a deploy rather than because anyone was told.
-
-An unclear alert with no escalation is the same as no alert, except that it lets you believe
-you have monitoring. An alert should say what happened, what it affects and what to do, and one
-ignored email shouldn't be the end of the chain.
+An unclear alert with no escalation is the same as no alert, except it lets you believe you have
+monitoring.
 
 ## Gotchas
 
 - Check every environment, not the one that broke. Production was on `B2ms`: bigger, still
-  Burstable, same latent failure at production load. The incident in dev was a free warning.
-- Keep the SKU in IaC (Bicep `.bicepparam` here) so the tier is a reviewable line in a diff
-  rather than something changed in the portal once.
-- The same shape applies beyond databases. Any credit-based or burstable compute has it, and
-  credit exhaustion is silent until it bites.
-- Watch `cpu_credits_remaining` on a trend, not a threshold. By the time it's zero you're
-  already in the incident.
+  Burstable, same latent failure at production load.
+- Keep the SKU in IaC so the tier is a reviewable line in a diff rather than something changed
+  in the portal once.
+- Applies beyond databases. Any credit-based compute has it, and exhaustion is silent until it
+  bites.
+- Watch `cpu_credits_remaining` on a trend. By the time it's zero you're in the incident.
