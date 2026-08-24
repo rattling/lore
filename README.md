@@ -4,7 +4,7 @@ Technical things I've learned, kept somewhere they'll outlive the project that t
 
 Projects get finished, parked or abandoned. Technical lessons not covered under I.P., that deserve to be captured, can live here.
 
-## What this is
+## In Scope
 
 A folder of markdown files.
 
@@ -18,7 +18,7 @@ publishing platform. No metadata schema, no automation, no build step.
 It's also not for things you can get from the documentation. If a competent person could look
 it up in two minutes, it doesn't need to be here.
 
-## Where it sits
+## Out of Scope
 
 | Repo | Holds |
 |---|---|
