@@ -7,7 +7,7 @@ three things you'd do differently next time, and those normally die with the rep
 
 ## What this is
 
-A folder of markdown files. That's the whole design.
+A folder of markdown files, and that is the whole design.
 
 An entry exists because something was actually learned: a surprise, a pattern that proved its
 worth, a gotcha worth remembering, a technology behaving differently than advertised. Not
@@ -18,8 +18,8 @@ because a topic exists and ought to be written up.
 Not an app, a database, an MCP server, a knowledge graph, a tagging system, a search layer or a
 publishing platform. No metadata schema, no automation, no build step.
 
-If it grows one of those, something has gone wrong. Adding to this should cost nothing, and
-that property is easy to break.
+If it grows one of those, something has gone wrong. Adding to this should cost nothing, and I
+have watched that property get destroyed by well-meant tooling before.
 
 It's also not for things you can get from the documentation. If a competent person could look
 it up in two minutes, it doesn't need to be here.
@@ -29,11 +29,15 @@ it up in two minutes, it doesn't need to be here.
 | Repo | Holds |
 |---|---|
 | **jmem** | what I think and remember: notes, ideas, decisions, diary |
-| **[ways-of-working](https://github.com/rattling/ways-of-working)** | how I work: process, conventions, templates, agent instructions |
+| **[ways-of-working](https://github.com/rattling/ways-of-working)** | how I run projects: setup, light architecture, the delivery loop, general engineering standards |
 | **lore** (here) | what I've learned technically: patterns, gotchas, architectural lessons |
 
 If it's about running a project it goes in ways-of-working. If it's about building the thing it
 goes here.
+
+The edge between them is worth watching. A general stance ("design contracts at module
+boundaries") is a standard and belongs in ways-of-working. A specific thing that bit me
+("Azure Burstable tiers throttle on CPU credits") is a lesson and belongs here.
 
 ## Capture, then curate
 
@@ -113,8 +117,8 @@ has to be maintained twice.
 
 ## Keeping it boring
 
-The risk isn't neglect, it's enthusiasm: a taxonomy nobody needs, a script to build an index, a
-schema that makes capture a chore. Directories appear when there's enough material for them,
-not before.
+The thing that kills a repo like this is not neglect. It is enthusiasm: a taxonomy nobody
+needs, a script to build an index, a schema that turns capture into a chore. Directories appear
+when there is enough material for them, not before.
 
-Quality over volume. A dozen entries worth re-reading beats two hundred that restate the docs.
+A dozen entries worth re-reading beats two hundred that restate the documentation.

@@ -19,9 +19,10 @@ An entry earns its place when:
 - a technology behaved differently than its documentation implied
 - a technique is likely to come up again
 
-It doesn't earn its place when it's in the official docs, or when it's a general principle
-nobody learned from anything in particular. "Use dependency injection for testability" is not
-lore, it's filler, and filler is how this repo dies.
+It does not earn its place when it is in the official documentation, or when it is a general
+principle nobody learned from anything in particular. "Use dependency injection for
+testability" is filler. Enough filler and nobody reads the repo, which is the failure mode to
+avoid.
 
 ## How to write
 
@@ -29,8 +30,8 @@ lore, it's filler, and filler is how this repo dies.
 how much can be said.
 
 **Ground it.** Every entry comes from something real: a project, an experiment, a measurement,
-a specific piece of research. Say where it came from and roughly when. If you can't name where
-it was learned, it's probably filler.
+a specific piece of research. Say where it came from and roughly when. If you cannot name where
+it was learned, that is usually a sign there is nothing to record.
 
 **Separate observation from conclusion.** "Tool selection topped out at 60–70% across nine
 similar tools" is an observation. "So remove the selection step" is a conclusion. Keep the line
